@@ -1,0 +1,17 @@
+{
+  "name": "shop-management-system",
+  "version": "1.0.0",
+  "description": "Full-stack Shop Management System with Voice Recognition",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run start",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "install-all": "npm run install-server && npm run install-client",
+    "build": "cd client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}
