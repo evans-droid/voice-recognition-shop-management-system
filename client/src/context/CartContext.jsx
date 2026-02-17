@@ -19,17 +19,39 @@ export const CartProvider = ({ children }) => {
     setCartTotal(total);
   }, [cart]);
 
+  // Calculate item count
+  const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Calculate subtotal (same as cartTotal for now)
+  const subtotal = cartTotal;
+
+  // Calculate tax (0% for now)
+  const tax = 0;
+
+  // Calculate total (subtotal + tax)
+  const total = subtotal + tax;
+
   const addToCart = (product) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item._id === product._id);
+      const existingItem = prevCart.find((item) => item.productId === product._id);
       if (existingItem) {
         return prevCart.map((item) =>
-          item._id === product._id
-            ? { ...item, quantity: item.quantity + 1 }
+          item.productId === product._id
+            ? { 
+                ...item, 
+                quantity: item.quantity + 1,
+                total: (item.quantity + 1) * item.price
+              }
             : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { 
+        productId: product._id,
+        name: product.name, 
+        price: product.price, 
+        quantity: 1,
+        total: product.price * 1
+      }];
     });
   };
 
